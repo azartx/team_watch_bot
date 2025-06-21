@@ -11,6 +11,6 @@ app = Application.builder().token(getApiKey()).build()
 applyAsyncJobs(app)
 
 app.add_handler(MessageHandler(filters.ALL, handle_message))
-app.add_handler(CommandHandler(filters.ALL, handle_command))
+app.add_handler(MessageHandler(filters.COMMAND, handle_command))
 
 app.run_polling()
