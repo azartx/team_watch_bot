@@ -12,6 +12,6 @@ app = Application.builder().token(getApiKey()).build()
 applyAsyncJobs(app)
 
 app.add_handler(MessageHandler(filters.ALL, handle_message))
-app.add_handler(CommandHandler("top", showTopUsersStats))
+app.add_handler(MessageHandler(filters.Regex(r'^/top\b'), showTopUsersStats))
 
 app.run_polling()
