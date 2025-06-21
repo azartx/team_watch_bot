@@ -1,29 +1,16 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from telegram.ext import Application, MessageHandler, filters
-
-from dailyrepot.daylyreport import send_daily_report
+from telegram.ext import Application, MessageHandler, filters, CommandHandler
 from databse.topUsersDb import initDaylyReportDb
-from messagehandler.AppMessageHandler import handle_message
+from jobs.jobs import applyAsyncJobs
+from messagehandler.AppMessageHandler import handle_message, handle_command
 from utils.apikeymanager import getApiKey
-
-def initAsyncSchedulerJobs(app: Application):
-    scheduler = AsyncIOScheduler()
-
-    daylyReportTime = "23:50" # it's 20:30 in UTC 0
-    scheduler.add_job(
-        send_daily_report,
-        trigger="cron",
-        hour=daylyReportTime.split(':')[0],
-        minute=daylyReportTime.split(':')[1],
-        args=[app],
-    )
 
 initDaylyReportDb()
 
 app = Application.builder().token(getApiKey()).build()
 
-initAsyncSchedulerJobs(app)
+applyAsyncJobs(app)
 
-app.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND, handle_message))
+app.add_handler(MessageHandler(filters.ALL, handle_message))
+app.add_handler(CommandHandler(filters.ALL, handle_command))
 
 app.run_polling()
