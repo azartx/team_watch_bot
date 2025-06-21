@@ -9,7 +9,7 @@ from utils.apikeymanager import getApiKey
 def initAsyncSchedulerJobs(app: Application):
     scheduler = AsyncIOScheduler()
 
-    daylyReportTime = "23:30" # it's 20:30 in UTC 0
+    daylyReportTime = "23:50" # it's 20:30 in UTC 0
     scheduler.add_job(
         send_daily_report,
         trigger="cron",
