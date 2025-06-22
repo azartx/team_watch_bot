@@ -1,8 +1,13 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from databse.topUsersDb import get_today_top_users, update_user_data
+from utils.constants import TG_SHORT_GROUP_ID
+
 
 async def process_daily_report(update: Update):
+    if update.message.chat_id != TG_SHORT_GROUP_ID:
+        return
+
     user = update.effective_user
     if not user:
         return

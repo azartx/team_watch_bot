@@ -34,9 +34,8 @@ def get_today_top_users():
 
     c.execute('''SELECT username, message_count
                  FROM user_activity
-                 WHERE date = ?
-                 ORDER BY message_count DESC
-                     LIMIT ?''', (today))
+              WHERE date = ?
+              ORDER BY message_count DESC''', (today,))
     results = c.fetchall()
     conn.close()
     return results
