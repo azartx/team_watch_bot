@@ -6,7 +6,7 @@ def applyAsyncJobs(app: Application):
     scheduler = AsyncIOScheduler()
 
     # daily report job
-    daylyReportTime = "11:08"  # it's 20:30 in UTC 0
+    daylyReportTime = "11:20"  # it's 20:30 in UTC 0
     scheduler.add_job(
         send_daily_report,
         trigger="cron",
@@ -14,3 +14,5 @@ def applyAsyncJobs(app: Application):
         minute=daylyReportTime.split(':')[1],
         args=[app],
     )
+
+    scheduler.start()
