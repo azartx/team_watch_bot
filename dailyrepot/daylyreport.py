@@ -5,7 +5,7 @@ from utils.constants import TG_SHORT_GROUP_ID
 
 
 async def process_daily_report(update: Update):
-    if update.message.chat_id != TG_SHORT_GROUP_ID:
+    if update.message.chat.id != TG_SHORT_GROUP_ID:
         return
 
     user = update.effective_user
