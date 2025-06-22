@@ -1,18 +1,11 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from datetime import time
 from telegram.ext import Application
 from dailyrepot.daylyreport import send_daily_report
 
 def applyAsyncJobs(app: Application):
-    scheduler = AsyncIOScheduler()
-
-    # daily report job
-    daylyReportTime = "11:20"  # it's 20:30 in UTC 0
-    scheduler.add_job(
+    app.job_queue.run_daily(
         send_daily_report,
-        trigger="cron",
-        hour=daylyReportTime.split(':')[0],
-        minute=daylyReportTime.split(':')[1],
-        args=[app],
+        time=time(hour=18, minute=00),
+        days=(0, 1, 2, 3, 4, 5, 6),
+        chat_id=-1002823803500
     )
-
-    scheduler.start()
