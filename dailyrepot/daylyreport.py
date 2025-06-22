@@ -22,7 +22,7 @@ async def send_daily_report(context: ContextTypes.DEFAULT_TYPE):
     report = format_report(top_users)
 
     await context.bot.send_message(
-        chat_id=context.job.chat_id,
+        chat_id=TG_SHORT_GROUP_ID,
         text=report
     )
 
