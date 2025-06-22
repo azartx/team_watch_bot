@@ -12,4 +12,4 @@ applyAsyncJobs(app)
 
 app.add_handler(MessageHandler(filters.ALL, handle_message))
 
-app.run_polling()
+# app.run_polling()
